@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dynamic Product Filter</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+
+    .box {
+      border: 2px solid #000;
+      padding: 15px;
+      margin-bottom: 20px;
+      width: 400px;
+    }
+
+    h3 {
+      margin-top: 0;
+    }
+
+    select {
+      padding: 6px 10px;
+      margin-bottom: 15px;
+      font-size: 14px;
+    }
+
+    .product {
+      border: 1px solid #ccc;
+      padding: 8px;
+      margin-bottom: 6px;
+      border-radius: 4px;
+      background: #f9f9f9;
+    }
+
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Box 1 -->
+  <div class="box">
+    <h3>Product List</h3>
+    <label for="filter1">Filter by Category:</label>
+    <select id="filter1">
+      <option value="all">All</option>
+      <option value="clothing">Clothing</option>
+      <option value="electronics">Electronics</option>
+      <option value="books">Books</option>
+    </select>
+
+    <div id="product-list1">
+      <div class="product" data-category="clothing">T-Shirt</div>
+      <div class="product" data-category="clothing">Jeans</div>
+      <div class="product" data-category="electronics">Headphones</div>
+      <div class="product" data-category="electronics">Smartphone</div>
+      <div class="product" data-category="books">Novel</div>
+      <div class="product" data-category="books">Cookbook</div>
+    </div>
+  </div>
+
+  <!-- Box 2 -->
+  <div class="box">
+    <h3>Product List</h3>
+    <label for="filter2">Filter by Category:</label>
+    <select id="filter2">
+      <option value="all">All</option>
+      <option value="clothing" selected>Clothing</option>
+      <option value="electronics">Electronics</option>
+      <option value="books">Books</option>
+    </select>
+
+    <div id="product-list2">
+      <div class="product" data-category="clothing">T-Shirt</div>
+      <div class="product" data-category="clothing">Jeans</div>
+      <div class="product" data-category="electronics">Headphones</div>
+      <div class="product" data-category="electronics">Smartphone</div>
+      <div class="product" data-category="books">Novel</div>
+      <div class="product" data-category="books">Cookbook</div>
+    </div>
+  </div>
+
+  <!-- Box 3 -->
+  <div class="box">
+    <h3>Product List</h3>
+    <label for="filter3">Filter by Category:</label>
+    <select id="filter3">
+      <option value="all">All</option>
+      <option value="clothing">Clothing</option>
+      <option value="electronics">Electronics</option>
+      <option value="books" selected>Books</option>
+    </select>
+
+    <div id="product-list3">
+      <div class="product" data-category="clothing">T-Shirt</div>
+      <div class="product" data-category="clothing">Jeans</div>
+      <div class="product" data-category="electronics">Headphones</div>
+      <div class="product" data-category="electronics">Smartphone</div>
+      <div class="product" data-category="books">Novel</div>
+      <div class="product" data-category="books">Cookbook</div>
+    </div>
+  </div>
+
+  <script>
+    function setupFilter(filterId, listId) {
+      const filter = document.getElementById(filterId);
+      const products = document.querySelectorAll(`#${listId} .product`);
+
+      function applyFilter() {
+        const selected = filter.value;
+        products.forEach(product => {
+          if (selected === "all" || product.dataset.category === selected) {
+            product.classList.remove("hidden");
+          } else {
+            product.classList.add("hidden");
+          }
+        });
+      }
+
+      // Run once on load
+      applyFilter();
+
+      // Run on dropdown change
+      filter.addEventListener("change", applyFilter);
+    }
+
+    // Setup filters for each box
+    setupFilter("filter1", "product-list1");
+    setupFilter("filter2", "product-list2");
+    setupFilter("filter3", "product-list3");
+  </script>
+
+</body>
+</html>
